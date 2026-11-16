@@ -1,0 +1,35 @@
+## Privacy Policy
+
+This application helps authorized project team members search and summarize specification content with AI assistance.
+
+### Information We Collect
+- **Authentication data:** We use your identity provider login (Auth0 via Streamlit auth) to identify your account. This typically includes your name, email address, nickname, profile image, and provider user ID claims.
+- **Usage data:** We log prompts, assistant responses, model selections, feedback, and related metadata to support troubleshooting, quality monitoring, and product improvement.
+- **Saved chat history:** For signed-in users, we may store visible chat threads so you can reopen, continue, rename, and delete conversations in the app.
+- **Optional profile data:** Additional profile fields made available by your identity provider may be displayed in the app.
+
+### How We Use Information
+- Operate, secure, and maintain the application.
+- Restrict access to authorized users and domains.
+- Improve answer quality, reliability, and support workflows.
+- Investigate abuse, service issues, and policy violations.
+
+### Chat History and Retention
+Deleting a visible chat removes it from your chat history list. Operational audit and feedback logs may still be retained for support, reliability, security, and compliance purposes.
+
+### Sharing and Disclosure
+- We do not sell personal information.
+- We may share data with infrastructure and service providers that help run the app (for example, authentication, hosting, and model/API providers), under appropriate confidentiality and security terms.
+- We may disclose data when required by law or to protect rights, safety, and service integrity.
+
+### Model provider processing
+Third-party APIs process parts of each request—for example prompts, retrieved specification excerpts for context, embeddings, or candidate passages for reordering results. **[OpenRouter](https://openrouter.ai/privacy)** handles chat completions and embeddings; **[Voyage AI](https://www.voyageai.com/privacy)** handles search-result reranking. See each linked privacy policy for how that provider collects, uses, and retains data (including subprocessors routed through OpenRouter).
+
+### AI and Accuracy Notice
+This app uses Large Language Models (LLMs). AI outputs can be incomplete or incorrect and should not be treated as the sole source of truth. Always verify important decisions against official contract/specification documents and project records.
+
+### Data Security
+We apply reasonable administrative and technical safeguards. No internet-based system is guaranteed to be 100% secure.
+
+### Your Use of the App
+By using this app, you acknowledge this policy and consent to the collection and use of data as described above.

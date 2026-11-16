@@ -1,0 +1,12 @@
+streamlit==1.56.0
+streamlit-pdf-viewer
+openai>=2.0
+pypdfium2>=4.30
+google-genai
+python-docx
+markdown
+beautifulsoup4
+psycopg2-binary
+Authlib==1.6.11
+pytest
+pypdf

@@ -1,0 +1,1 @@
+see @qa/qa_report_*.md and suggest sytem prompt improvements in @utils/system_prompt.py 

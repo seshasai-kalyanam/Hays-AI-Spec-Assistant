@@ -1,0 +1,9 @@
+[client]
+showSidebarNavigation = false
+
+[server]
+maxUploadSize = 1024
+
+[theme]
+base = "light"
+primaryColor = "#2E7D32"

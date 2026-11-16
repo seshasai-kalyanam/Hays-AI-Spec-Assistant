@@ -1,0 +1,21 @@
+prompt_number,category,prompt,possible answers
+1,Testing/Study Requirements,What is the designated Spec Section for Testing/Study Requirements?,"Section 260543,260572,260573,260574"
+2,General Electrical Provisions,"Regarding General Electrical Provisions - Orientation/Training Required, what is the specified 'Duration'?",Extract explicit value from text
+3,Max. Circuits Allowed Per Raceway,Are there any additional notes or information specified for Max. Circuits Allowed Per Raceway?,Extract explicit value from text
+4,Termination Approved Manufacturers,Are there any additional notes or information specified for Termination Approved Manufacturers?,Extract explicit value from text
+5,Grounding,Are there any additional notes or information specified for Grounding?,Extract explicit value from text
+6,Conduit,Are there any additional notes or information specified for Elbow Radius?,"Advance Products & Systems, Inc; Calpico, Inc.; Metraflex Co; Pipeline Seal and Insulator, Inc."
+7,Conduit,"Regarding Exposed Indoors, what is the specification for 'Concealed Indoors'?","EMT, IMC, GRC, ARC, MC, HCFC"
+8,Conduit,"Regarding Exposed Indoors, what is the specification for 'Below 10""'?","EMT, IMC, GRC, ARC"
+9,Conduit,"Regarding Exposed Indoors, what is the specification for 'Above 10""'?","EMT, IMC, GRC, ARC"
+10,Conduit,"Regarding Underground, what is the specification for 'Stub Up/Elbow Type'?","SCH40, SCH80, EMT, GRC, WRAPPED GRC, OCAL, OTHER"
+11,Approved Manufacturers,"Regarding Approved Manufacturers, what is the specification for 'Insulation Type'?","XLP, EPR, Interlocked Armor EPR"
+12,Dry Type Transformers,"Regarding Dry Type Transformers, what is the specification for 'Type'?","Standard Rise, K Rated, Harmonic Mitigating"
+13,Transformers (Medium Voltage),"Regarding Transformers (Medium Voltage), what is the specification for 'Load Tap Changer Required'?","Yes, No"
+14,Panelboards,"Regarding Panelboards, what is the specification for 'Ratings'?","Series Rated, Fully Rated"
+15,Spec Section,"Regarding Spec Section, what is the specification for 'Variable Speed Drives'?","Furnished by Electrical, Furnished by Others"
+16,Emergency Generator,"Regarding Emergency Generator - Load Bank Test Required, what is the specified 'Duration'?",Extract explicit value from text
+17,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Special Enclosure'?","Sound Rated, Wind Rated, Ballistic Rated"
+18,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Fuel Quantity to be Provided for Testing'?",gallons
+19,Fireproofing,"Regarding Fireproofing, what is the specification for 'Caulking of Conduits'?","By Electrical, By Others"
+20,Fire Alarm System,"Regarding Fire Alarm System, what is the specification for 'Area of Rescue Required with Proposal'?","Yes, No"

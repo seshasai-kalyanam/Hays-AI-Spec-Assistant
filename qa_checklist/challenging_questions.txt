@@ -1,0 +1,47 @@
+# Curated set of challenging user prompts for deterministic QA pipeline runs.
+#
+# Used by `python qa/qa.py --challenging`. Keep this list stable across runs so
+# baseline and experimental retrieval variants (for example qa_bm25) compare
+# apples to apples.
+#
+# Selection criteria (why each prompt is "challenging" for the retrieval
+# pipeline, not just for the LLM):
+#   - Compound or conditional phrasing ("if so, where", "if not, what...").
+#   - Matrix answers (multiple rows x multiple columns).
+#   - Enumeration checks that force retrieval to surface every listed item.
+#   - Specialty sections with sparser coverage (healthcare, hazardous
+#     locations, busway, comms underground).
+#   - Vocabulary with common synonyms where lexical mismatch is likely.
+#
+# Lines starting with `#` and blank lines are ignored by the loader in
+# qa/qa_generation.py (_load_questions_from_file).
+
+# 1. Compound + conditional: two schedules and two use contexts.
+Is Schedule 40 or Schedule 80 PVC conduit allowed for underground use for raceways and boxes? If so, where is each used?
+
+# 2. Negative conditional + alternate conduit + numeric stub-out length.
+Can PVC penetrate the exterior building envelope below grade? If not, what conduit type and stub-out length are required?
+
+# 3. Enumeration test: retrieval must surface all three seal types.
+What types of seals are required at the exterior for Raceways & Boxes (including concrete, red dye, and metal detection tape)?
+
+# 4. Matrix: three conduit families x three circuit types.
+What types of overhead conduit (MC, EMT, IMC/GRC) are specified for Raceways & Boxes on Branch, Branch HR, and Feeders?
+
+# 5. Two-axis requirements: type + coverage depth, exterior + interior.
+What are the backfill types and coverage requirements for both the exterior and interior of the building?
+
+# 6. Six-cell matrix: three phases x two voltage systems.
+What are the color codes for A Phase, B Phase, and C Phase for 120/208V and 277/480V?
+
+# 7. Healthcare specialty, three branches in a single prompt.
+What are the specifications for the Life Safety, Critical, and Equipment branches of the emergency power system?
+
+# 8. NEC specialty, sparse coverage, synonym-prone ("hazardous" / "classified").
+Are there Class I, Division 1 or 2 hazardous location wiring requirements?
+
+# 9. Specialty distribution, synonym-sensitive ("busway" vs "bus duct").
+What are the specifications for busway or bus duct systems for high-rise power distribution?
+
+# 10. Specific numeric, communications-underground cross-section.
+What is the minimum clearance required from electrical ducts for communications underground?

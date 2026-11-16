@@ -1,0 +1,382 @@
+prompt_number,category,prompt,possible answers
+1,Project Details,"Regarding Project Details, what is the specification for 'Project Number'?",Extract explicit value from text
+2,Project Details,"Regarding Project Details, what is the specification for 'Project Name'?",TCH NRI 8 Wet Lab Renovation
+3,General Electrical Provisions,"Regarding General Electrical Provisions, what is the specification for 'O&M Manuals'?","Hard Copy, Digital, Both"
+4,General Electrical Provisions,"Regarding General Electrical Provisions, what is the specification for 'As-Built Drawings'?","Hard Copy, Digital, Both"
+5,General Electrical Provisions,"Regarding General Electrical Provisions, what is the specification for 'BIM'?","Yes, No"
+6,General Electrical Provisions,"Regarding General Electrical Provisions, what is the specification for 'MEP Coordination Drawings Required'?","Yes, No"
+7,General Electrical Provisions,"Regarding General Electrical Provisions, what is the specification for 'Background Check Required'?","Yes, No"
+8,General Electrical Provisions,"Regarding General Electrical Provisions, what is the specification for 'Finger Printing Required'?","Yes, No"
+9,General Electrical Provisions,"Regarding General Electrical Provisions, what is the specification for 'Orientation/Training Required'?","Yes, No"
+10,General Electrical Provisions,"Regarding General Electrical Provisions - Orientation/Training Required, what is the specified 'Duration'?",Extract explicit value from text
+11,General Electrical Provisions,"Regarding General Electrical Provisions, what is the specification for 'Safety Foreman Required'?","Yes, No"
+12,General Electrical Provisions,"Regarding General Electrical Provisions, what is the specification for 'TWIC Required'?","Yes, No"
+13,General Electrical Provisions,"Regarding General Electrical Provisions, what is the specification for 'Site Office/Storage Required'?","Yes, No"
+14,Testing/Study Requirements,What is the designated Spec Section for Testing/Study Requirements?,"Section 260543,260572,260573,260574"
+15,Testing/Study Requirements,"Regarding Testing/Study Requirements, what is the specification for 'Coordination Study'?","Yes, No"
+16,Testing/Study Requirements,"Regarding Testing/Study Requirements, what is the specification for 'ARC Flash/Fault Study'?","Yes, No"
+17,Testing/Study Requirements,"Regarding Testing/Study Requirements, what is the specification for 'Third Party Testing'?","Yes, No"
+18,Insulated Conductors - 600V,What is the designated Spec Section for Insulated Conductors - 600V?,Extract explicit value from text
+19,Minimum Size,"Regarding Minimum Size, what is the specification for 'Conductor Type'?","Copper, Aluminum"
+20,Stranded Only,"Regarding Stranded Only, what is the specification for 'Tray Cable'?","THHN, XHHW"
+21,Insulation Type,"Regarding Insulation Type, what is the specification for 'Indoors'?","THHN/THWN, XHHW, RHH, Other"
+22,Insulation Type,"Regarding Insulation Type, what is the specification for 'Outdoors/Underground'?","THHN/THWN, XHHW, RHH, RHW, Other"
+23,Insulation Type,"Regarding Insulation Type, what is the specification for 'Termination Type'?","Mechanical, Compression"
+24,Insulation Type,"Regarding Insulation Type, what is the specification for 'Tinned Copper Required'?","Yes, No"
+25,Max. Circuits Allowed Per Raceway,"Regarding Max. Circuits Allowed Per Raceway, what is the specification for 'Neutral Required per Circuit'?","Yes, No"
+26,Max. Circuits Allowed Per Raceway,Are there any additional notes or information specified for Max. Circuits Allowed Per Raceway?,Extract explicit value from text
+27,Insulated Conductors - Medium Voltage,What is the designated Spec Section for Insulated Conductors - Medium Voltage?,Extract explicit value from text
+28,Approved Manufacturers,"Regarding Approved Manufacturers, what is the specification for 'Conductor Type'?","Copper, Aluminum"
+29,Approved Manufacturers,"Regarding Approved Manufacturers, what is the specification for 'Insulation Type'?","XLP, EPR, Interlocked Armor EPR"
+30,Termination Approved Manufacturers,"Regarding Termination Approved Manufacturers, what is the specification for 'Termination Type'?","Heat Shrink, Cold Shrink"
+31,Termination Approved Manufacturers,"Regarding Termination Approved Manufacturers, what is the specification for 'Tinned Copper Required'?","Yes, No"
+32,Termination Approved Manufacturers,Are there any additional notes or information specified for Termination Approved Manufacturers?,Extract explicit value from text
+33,Insulated Conductors - Power Limited (Control Wiring),What is the designated Spec Section for Insulated Conductors - Power Limited (Control Wiring)?,Extract explicit value from text
+34,Approved Manufacturers,"Regarding Approved Manufacturers, what is the specification for 'Insulation Type'?","PVC Jacket, Plenum Rated, Both"
+35,Approved Manufacturers,Are there any additional notes or information specified for Approved Manufacturers?,Extract explicit value from text
+36,Grounding,What is the designated Spec Section for Grounding?,Extract explicit value from text
+37,Grounding,Are there any additional notes or information specified for Grounding?,Extract explicit value from text
+38,Raceways,What is the designated Spec Section for Raceways?,260500-9
+39,Conduit,"Regarding Underground, what is the specification for 'Minimum Size'?","""3/4"", 1"", 1 1/4"""
+40,Conduit,"Regarding Underground, what is the specification for 'Conduit Type'?","EB, DB, SCH40, SCH80, GRC, OCAL"
+41,Conduit,"Regarding Underground, what is the specification for 'Encasement'?","Backfill, Sand, Concrete"
+42,Conduit,"Regarding Underground, what is the specification for 'Reinforced'?","Yes, No"
+43,Conduit,"Regarding Underground, what is the specification for 'Stub Up/Elbow Type'?","SCH40, SCH80, EMT, GRC, WRAPPED GRC, OCAL, OTHER"
+44,Conduit,"Regarding Elbow Radius, what is the specification for 'Riser Type'?","SCH40, SCH80, EMT, GRC, WRAPPED GRC, OCAL, OTHER"
+45,Conduit,Are there any additional notes or information specified for Elbow Radius?,"Advance Products & Systems, Inc; Calpico, Inc.; Metraflex Co; Pipeline Seal and Insulator, Inc."
+46,Conduit,"Regarding Above Grade, what is the specification for 'Minimum Size'?","1/2"", 3/4"", 1"""
+47,Conduit,"Regarding Above Grade, what is the specification for 'Fitting Type'?","Die Cast, Steel, Set Screw, Compression"
+48,Conduit,"Regarding Above Grade, what is the specification for 'Insulated Fittings'?","Yes, No"
+49,Conduit,"Regarding Exposed Indoors, what is the specification for 'Below 10""'?","EMT, IMC, GRC, ARC"
+50,Conduit,"Regarding Exposed Indoors, what is the specification for 'Above 10""'?","EMT, IMC, GRC, ARC"
+51,Conduit,Are there any additional notes or information specified for Exposed Indoors?,Extract explicit value from text
+52,Conduit,"Regarding Exposed Indoors, what is the specification for 'Concealed Indoors'?","EMT, IMC, GRC, ARC, MC, HCFC"
+53,Conduit,Are there any additional notes or information specified for Exposed Indoors?,Extract explicit value from text
+54,Conduit,"Regarding Exposed Indoors, what is the specification for 'Outdoors'?","EMT, IMC, GRC, ERC, PGRC, Other"
+55,Conduit,Are there any additional notes or information specified for Exposed Indoors?,Extract explicit value from text
+56,Conduit,"Regarding Exposed Indoors, what is the specification for 'Metal Clad'?","BX, MC, HFC, AC, Jacketed AC"
+57,Conduit,"Regarding Exposed Indoors, what is the specification for 'Jacket'?","Steel, Aluminum"
+58,Cable Tray,What is the designated Spec Section for Cable Tray?,Extract explicit value from text
+59,Cable Tray,"Regarding Cable Tray, what is the specification for 'Material Type'?","Aluminum, Steel, Special Galvanized"
+60,Cable Tray,"Regarding Cable Tray, what is the specification for 'Type'?","Ladder, Ventilated, Solid Bottom, Wire Basket"
+61,Cable Tray,"Regarding Cable Tray, what is the specification for 'Cable Tray Ground Required'?","Yes, No"
+62,Cable Tray,"Regarding Cable Tray, what is the specification for 'Special Cable Tray Conduit Clamps Required'?","Yes, No"
+63,Cable Tray,Are there any additional notes or information specified for Cable Tray?,Extract explicit value from text
+64,Support Hardware,What is the designated Spec Section for Support Hardware?,Extract explicit value from text
+65,Support Hardware,"Regarding Support Hardware, what is the specification for 'Finish Types'?","Standard (Zinc/EG), Galvanized, Stainless 304, Stainless 316"
+66,Support Hardware,"Regarding Support Hardware, what is the specification for 'Powder Actuated (HILTI) Permitted'?","Yes, No"
+67,Support Hardware,"Regarding Support Hardware, what is the specification for 'Threaded Rod Minimum Size'?","1/4"", 3/8"", 1/2"", 5/8"", 3/4"", 1"""
+68,Support Hardware,"Regarding Support Hardware, what is the specification for 'Slick Rod Allowed'?","Yes, No"
+69,Support Hardware,"Regarding Support Hardware, what is the specification for 'Ceiling Wires (Fixture Supports)'?","Two Points, Four Points"
+70,Support Hardware,"Regarding Support Hardware, what is the specification for 'Industry Standards Stated'?","Yes, No"
+71,Support Hardware,Are there any additional notes or information specified for Support Hardware?,Extract explicit value from text
+72,Vibration Isolation and Seismic Restraints,What is the designated Spec Section for Vibration Isolation and Seismic Restraints?,Extract explicit value from text
+73,Vibration Isolation and Seismic Restraints,"Regarding Vibration Isolation and Seismic Restraints, what is the specification for 'Seismic Engineering'?","Yes, No"
+74,Approved Manufacturers,Are there any additional notes or information specified for Approved Manufacturers?,Extract explicit value from text
+75,Fireproofing,What is the designated Spec Section for Fireproofing?,Extract explicit value from text
+76,Fireproofing,"Regarding Fireproofing, what is the specification for 'Caulking of Conduits'?","By Electrical, By Others"
+77,Fireproofing,"Regarding Fireproofing, what is the specification for 'Fire Pads Required'?","Yes, No"
+78,Fireproofing,"Regarding Fireproofing, what is the specification for 'Sound Pads Required'?","Yes, No"
+79,Fireproofing,"Regarding Fireproofing, what is the specification for 'EZ-Paths/Sleeves'?","Yes, No"
+80,Fireproofing,Are there any additional notes or information specified for Fireproofing?,Extract explicit value from text
+81,Electrical Boxes,What is the designated Spec Section for Electrical Boxes?,Extract explicit value from text
+82,Electrical Boxes,"Regarding Electrical Boxes, what is the specification for 'Pull Boxes'?","Screw Cover, Hinge Cover"
+83,Electrical Boxes,"Regarding Electrical Boxes, what is the specification for 'Device Boxes'?","4 sq, 4 11/16"""
+84,Electrical Boxes,"Regarding Electrical Boxes, what is the specification for 'Minimum Depth'?","1 1/2"", 2 1/8"""
+85,Electrical Boxes,"Regarding Electrical Boxes, what is the specification for 'Special 5"" Boxes (RANDL)'?","Yes, No"
+86,Electrical Boxes,"Regarding Electrical Boxes, what is the specification for 'Indoor Rating'?","NEMA 1, NEMA 12"
+87,Electrical Boxes,"Regarding Electrical Boxes, what is the specification for 'Outdoor Rating'?","NEMA 3R, NEMA 4X"
+88,Electrical Boxes,Are there any additional notes or information specified for Electrical Boxes?,Extract explicit value from text
+89,Lighting Control System,What is the designated Spec Section for Lighting Control System?,Extract explicit value from text
+90,Lighting Control System,"Regarding Lighting Control System, what is the specification for 'Furnished By'?","Electrical, Others"
+91,Lighting Control System,"Regarding Lighting Control System, what is the specification for 'Approved Manufacturers'?","Lutron, Leviton, Lithonia, Marlin, Strand, ETC, Other"
+92,Lighting Control System,"Regarding Lighting Control System, what is the specification for 'Extended Warranty Required'?","Yes, No"
+93,Lighting Control System,"Regarding Lighting Control System, what is the specification for 'System Startup'?","Electrical, Lighting Rep., 3rd Party"
+94,Lighting Control System,"Regarding Lighting Control System, what is the specification for 'Testing'?","Electrical, Lighting Rep., 3rd Party"
+95,Lighting Control System,"Regarding Lighting Control System, what is the specification for 'Training'?","Electrical, Lighting Rep., 3rd Party"
+96,Lighting Control System,Are there any additional notes or information specified for Lighting Control System?,Extract explicit value from text
+97,Dry Type Transformers,What is the designated Spec Section for Dry Type Transformers?,Extract explicit value from text
+98,Dry Type Transformers,"Regarding Dry Type Transformers, what is the specification for 'Furnished By'?","Electrical, Others"
+99,Dry Type Transformers,"Regarding Dry Type Transformers, what is the specification for 'Type'?","Standard Rise, K Rated, Harmonic Mitigating"
+100,Approved Manufacturers,"Regarding Approved Manufacturers, what is the specification for 'Core'?","Copper, Aluminum"
+101,Approved Manufacturers,"Regarding Approved Manufacturers, what is the specification for 'Fungus Proofing'?","Yes, No"
+102,Approved Manufacturers,"Regarding Approved Manufacturers, what is the specification for 'Mounting'?","Spring Isolators, Neoprene Pads"
+103,Approved Manufacturers,"Regarding Approved Manufacturers, what is the specification for 'Extended Warranty Required'?","Yes, No"
+104,Approved Manufacturers,Are there any additional notes or information specified for Approved Manufacturers?,Extract explicit value from text
+105,Transformers (Medium Voltage),What is the designated Spec Section for Transformers (Medium Voltage)?,Extract explicit value from text
+106,Transformers (Medium Voltage),"Regarding Transformers (Medium Voltage), what is the specification for 'Furnished By'?","Electrical, Others"
+107,Transformers (Medium Voltage),"Regarding Transformers (Medium Voltage), what is the specification for 'Load Tap Changer Required'?","Yes, No"
+108,Transformers (Medium Voltage),"Regarding Transformers (Medium Voltage), what is the specification for 'Primary Fusing Required'?","Yes, No"
+109,Transformers (Medium Voltage),"Regarding Transformers (Medium Voltage), what is the specification for 'Removable Radiator'?","Yes, No"
+110,Transformers (Medium Voltage),"Regarding Transformers (Medium Voltage), what is the specification for 'Extended Warranty Required'?","Yes, No"
+111,Transformers (Medium Voltage),Are there any additional notes or information specified for Transformers (Medium Voltage)?,Extract explicit value from text
+112,Spec Section,"Regarding Spec Section, what is the specification for 'Furnished By'?","Electrical, Others"
+113,Spec Section,"Regarding Spec Section, what is the specification for 'Approved Manufacturers'?","SQD, Eaton, GE, Siemens, Other"
+114,Spec Section,"Regarding Spec Section, what is the specification for 'Bussing'?","Copper, Aluminum, Silver Plated"
+115,Spec Section,"Regarding Spec Section, what is the specification for 'Variable Speed Drives'?","Furnished by Electrical, Furnished by Others"
+116,Spec Section,"Regarding Spec Section, what is the specification for 'Loose Motor Starters'?","Furnished by Electrical, Furnished by Others"
+117,NEMA Configuration,"Regarding NEMA Configuration, what is the specification for 'Indoor'?","NEMA 1, NEMA 12, Other"
+118,NEMA Configuration,"Regarding NEMA Configuration, what is the specification for 'Outdoor'?","NEMA 3R, NEMA 4/4X FRP, NEMA 4/4X Stainless, Other"
+119,Spare Parts Required,"Regarding Spare Parts Required, what is the specification for 'Fungus Proofing'?","Yes, No"
+120,Spare Parts Required,Are there any additional notes or information specified for Spare Parts Required?,Extract explicit value from text
+121,Switchgear (Medium Voltage),What is the designated Spec Section for Switchgear (Medium Voltage)?,Extract explicit value from text
+122,Switchgear (Medium Voltage),"Regarding Switchgear (Medium Voltage), what is the specification for 'Furnished By'?","Electrical, Others"
+123,Switchgear (Medium Voltage),"Regarding Switchgear (Medium Voltage), what is the specification for 'Extended Warranty Required'?","Yes, No"
+124,Switchgear (Medium Voltage),"Regarding Switchgear (Medium Voltage), what is the specification for 'Factory Witness Testing Required'?","Yes, No"
+125,Switchgear (Medium Voltage),Are there any additional notes or information specified for Switchgear (Medium Voltage)?,Extract explicit value from text
+126,Panelboards,What is the designated Spec Section for Panelboards?,Extract explicit value from text
+127,Panelboards,"Regarding Panelboards, what is the specification for 'Furnished By'?","Electrical, Others"
+128,Panelboards,"Regarding Panelboards, what is the specification for 'Approved Manufacturers'?","SQD, Eaton, GE, Siemens, Other"
+129,Panelboards,"Regarding Panelboards, what is the specification for 'Ratings'?","Series Rated, Fully Rated"
+130,Panelboards,"Regarding Panelboards, what is the specification for 'Bussing'?","Copper, Aluminum, Silver Plated"
+131,Panelboards,"Regarding Panelboards, what is the specification for 'Construction'?","Standard, Door-In-Door"
+132,NEMA Configuration,"Regarding NEMA Configuration, what is the specification for 'Indoor'?","NEMA 1, NEMA 12, Other"
+133,NEMA Configuration,"Regarding NEMA Configuration, what is the specification for 'Outdoor'?","NEMA 3R, NEMA 4/4X FRP, NEMA 4/4X Stainless, Other"
+134,NEMA Configuration,"Regarding NEMA Configuration, what is the specification for 'Spare Parts Required'?","Yes, No"
+135,NEMA Configuration,"Regarding NEMA Configuration, what is the specification for 'Extended Warranty Required'?","Yes, No"
+136,NEMA Configuration,"Regarding NEMA Configuration, what is the specification for 'Fungus Proofing'?","Yes, No"
+137,NEMA Configuration,Are there any additional notes or information specified for NEMA Configuration?,Extract explicit value from text
+138,Variable Speed Drive,What is the designated Spec Section for Variable Speed Drive?,Extract explicit value from text
+139,Variable Speed Drive,"Regarding Variable Speed Drive, what is the specification for 'Furnished By'?","Electrical, Others"
+140,Voltage,"Regarding Voltage, what is the specification for 'Extended Warranty Required'?","Yes, No"
+141,Voltage,"Regarding Voltage, what is the specification for 'Factory Witness Testing Required'?","Yes, No"
+142,Voltage,Are there any additional notes or information specified for Voltage?,Extract explicit value from text
+143,Starters/Reduced Voltage SFT Starter,What is the designated Spec Section for Starters/Reduced Voltage SFT Starter?,Extract explicit value from text
+144,Starters/Reduced Voltage SFT Starter,"Regarding Starters/Reduced Voltage SFT Starter, what is the specification for 'Furnished By'?","Electrical, Others"
+145,Voltage,"Regarding Voltage, what is the specification for 'Extended Warranty Required'?","Yes, No"
+146,Voltage,"Regarding Voltage, what is the specification for 'Factory Witness Testing Required'?","Yes, No"
+147,Voltage,Are there any additional notes or information specified for Voltage?,Extract explicit value from text
+148,Motor Control Center,What is the designated Spec Section for Motor Control Center?,Extract explicit value from text
+149,Motor Control Center,"Regarding Motor Control Center, what is the specification for 'Furnished By'?","Electrical, Others"
+150,Voltage,"Regarding Voltage, what is the specification for 'Extended Warranty Required'?","Yes, No"
+151,Voltage,"Regarding Voltage, what is the specification for 'Factory Witness Testing Required'?","Yes, No"
+152,Voltage,Are there any additional notes or information specified for Voltage?,Extract explicit value from text
+153,Uninterruptible Power Supply,What is the designated Spec Section for Uninterruptible Power Supply?,Extract explicit value from text
+154,Uninterruptible Power Supply,"Regarding Uninterruptible Power Supply, what is the specification for 'Furnished By'?","Electrical, Others"
+155,Uninterruptible Power Supply,"Regarding Uninterruptible Power Supply, what is the specification for 'Approved Manufacturers'?","Liebert, Powerware, MGE, S&C, APC, Toshiba, Eaton, GE, Other"
+156,Uninterruptible Power Supply,"Regarding Uninterruptible Power Supply, what is the specification for 'Battery Monitoring Required'?","Yes, No"
+157,Uninterruptible Power Supply,"Regarding Uninterruptible Power Supply, what is the specification for 'Metering Required'?","Yes, No"
+158,Uninterruptible Power Supply,"Regarding Uninterruptible Power Supply, what is the specification for 'Factory Witness Testing Required'?","Yes, No"
+159,Uninterruptible Power Supply,"Regarding Uninterruptible Power Supply, what is the specification for 'Extended Warranty Required'?","Yes, No"
+160,Uninterruptible Power Supply,"Regarding Uninterruptible Power Supply, what is the specification for 'Spare Parts Required'?","Yes, No"
+161,Uninterruptible Power Supply,Are there any additional notes or information specified for Uninterruptible Power Supply?,Extract explicit value from text
+162,Power Distribution Units,What is the designated Spec Section for Power Distribution Units?,Extract explicit value from text
+163,Power Distribution Units,"Regarding Power Distribution Units, what is the specification for 'Furnished By'?","Electrical, Others"
+164,Power Distribution Units,"Regarding Power Distribution Units, what is the specification for 'Approved Manufacturers'?","SQD, ABB, Eaton, Siemens, Other"
+165,Power Distribution Units,"Regarding Power Distribution Units, what is the specification for 'Metering Required'?","Yes, No"
+166,Power Distribution Units,"Regarding Power Distribution Units, what is the specification for 'Remote Distribution Cabinet Required'?","Yes, No"
+167,Power Distribution Units,"Regarding Power Distribution Units, what is the specification for 'Extended Warranty Required'?","Yes, No"
+168,Power Distribution Units,"Regarding Power Distribution Units, what is the specification for 'Spare Parts Required'?","Yes, No"
+169,Power Distribution Units,Are there any additional notes or information specified for Power Distribution Units?,Extract explicit value from text
+170,Wiring Devices/Plates,What is the designated Spec Section for Wiring Devices/Plates?,Extract explicit value from text
+171,Wiring Devices/Plates,"Regarding Wiring Devices/Plates, what is the specification for 'Approved Manufacturers'?","Leviton, Cooper, Hubbell, Pass & Seymour, Other"
+172,Wiring Devices/Plates,"Regarding Wiring Devices/Plates, what is the specification for 'Grade'?","Standard, Hospital, Tamperproof"
+173,Wiring Devices/Plates,"Regarding Wiring Devices/Plates, what is the specification for 'Wall Plates'?","Plastic, Nylon, Stainless"
+174,Wiring Devices/Plates,"Regarding Wiring Devices/Plates, what is the specification for 'Labeling'?","Engraved, Tape, Phenolic"
+175,Wiring Devices/Plates,"Regarding Wiring Devices/Plates, what is the specification for 'Surface Raceways'?","Plastic, Steel, Aluminum"
+176,Wiring Devices/Plates,"Regarding Wiring Devices/Plates, what is the specification for 'Floorboxes'?","Poke-Thru, Steel, Cast Iron"
+177,Wiring Devices/Plates,Are there any additional notes or information specified for Wiring Devices/Plates?,Extract explicit value from text
+178,Disconnects,What is the designated Spec Section for Disconnects?,Extract explicit value from text
+179,Disconnects,"Regarding Disconnects, what is the specification for 'Furnished By'?","Electrical, Others"
+180,Disconnects,"Regarding Disconnects, what is the specification for 'Disconnect Rating'?","General Duty, Heavy Duty"
+181,Disconnects,"Regarding Disconnects, what is the specification for 'Type'?","Fused, Non-Fused"
+182,Fuse Type,"Regarding Fuse Type, what is the specification for 'Spare Fuses'?","Yes, No"
+183,Fuse Type,"Regarding Fuse Type, what is the specification for 'Spare Fuse Cabinet'?","Yes, No"
+184,NEMA Configuration,"Regarding NEMA Configuration, what is the specification for 'Indoor'?","NEMA 1, NEMA 12, Other"
+185,NEMA Configuration,"Regarding NEMA Configuration, what is the specification for 'Outdoor'?","NEMA 3R, NEMA 4/4X FRP, NEMA 4/4X Stainless, Other"
+186,NEMA Configuration,"Regarding NEMA Configuration, what is the specification for 'Voltages'?","240V, 600V"
+187,NEMA Configuration,Are there any additional notes or information specified for NEMA Configuration?,Extract explicit value from text
+188,Emergency Generator,What is the designated Spec Section for Emergency Generator?,Extract explicit value from text
+189,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Furnished By'?","Electrical, Others"
+190,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Approved Manufacturers'?","Caterpillar, Cummins, Kohler, Generac, Taylor, Other"
+191,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Fuel Source'?","Diesel, Natural Gas"
+192,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Load Bank Test Required'?","Yes, No"
+193,Emergency Generator,"Regarding Emergency Generator - Load Bank Test Required, what is the specified 'Duration'?",Extract explicit value from text
+194,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Startup'?","Electrical, Mnfcturer, Other"
+195,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Special Enclosure'?","Sound Rated, Wind Rated, Ballistic Rated"
+196,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'NEMA Rating'?","NEMA 1, NEMA 3R"
+197,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Installation of Exhaust/Muffler'?","Yes, No"
+198,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'External Day Tank Required'?","Yes, No"
+199,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'External Primary Fuel Tank (Con-Vault) Required'?","Yes, No"
+200,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Spare Parts Required'?","Yes, No"
+201,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Extended Warranty Required'?","Yes, No"
+202,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Maintenance Contract Pricing Required'?","Yes, No"
+203,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Fuel'?","By Electrical, By Owner, By GC"
+204,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Fuel Quantity to be Provided for Testing'?",gallons
+205,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Fuel Quantity to be Provided for Tank'?",gallons
+206,Emergency Generator,"Regarding Emergency Generator, what is the specification for 'Crane Required'?","Yes, No"
+207,Emergency Generator,Are there any additional notes or information specified for Emergency Generator?,Extract explicit value from text
+208,Lightning Protection/Grounding,What is the designated Spec Section for Lightning Protection/Grounding?,Extract explicit value from text
+209,Lightning Protection/Grounding,"Regarding Lightning Protection/Grounding, what is the specification for 'Lightning Protection System Quote Required'?","Yes, No"
+210,Lightning Protection/Grounding,"Regarding Lightning Protection/Grounding, what is the specification for 'Grounding Counterpoise Required'?","Yes, No"
+211,Lightning Protection/Grounding,"Regarding Lightning Protection/Grounding, what is the specification for 'Raised Floor Grounding Required'?","Yes, No"
+212,Lightning Protection/Grounding,"Regarding Lightning Protection/Grounding, what is the specification for 'Cathodic Protection Quote Required'?","Yes, No"
+213,Lightning Protection/Grounding,Are there any additional notes or information specified for Lightning Protection/Grounding?,Extract explicit value from text
+214,Transient Voltage Surge Suppression,What is the designated Spec Section for Transient Voltage Surge Suppression?,Extract explicit value from text
+215,Transient Voltage Surge Suppression,"Regarding Transient Voltage Surge Suppression, what is the specification for 'Approved Manufacturers'?","Eaton/Cutler-Hammer, Clipper Power System, Square D, Electric Surge Logic, GE, Siemens, Leviton, Other"
+216,Transient Voltage Surge Suppression,"Regarding Transient Voltage Surge Suppression, what is the specification for 'Location'?","In Equipment, Stand Alone"
+217,Transient Voltage Surge Suppression,"Regarding Transient Voltage Surge Suppression, what is the specification for 'Enclosure'?","Indoor, Outdoor"
+218,Transient Voltage Surge Suppression,"Regarding Transient Voltage Surge Suppression, what is the specification for 'Factory Testing'?","Yes, No"
+219,Transient Voltage Surge Suppression,"Regarding Transient Voltage Surge Suppression, what is the specification for 'Extended Warranty Required'?","Yes, No"
+220,Transient Voltage Surge Suppression,Are there any additional notes or information specified for Transient Voltage Surge Suppression?,Extract explicit value from text
+221,Light Fixtures and Lamps,What is the designated Spec Section for Light Fixtures and Lamps?,Extract explicit value from text
+222,Light Fixtures and Lamps,"Regarding Light Fixtures and Lamps, what is the specification for 'Furnished By'?","Electrical, Others"
+223,Light Fixtures and Lamps,"Regarding Light Fixtures and Lamps, what is the specification for 'Sports Lighting Package Included'?","Yes, No"
+224,Light Fixtures and Lamps,"Regarding Light Fixtures and Lamps, what is the specification for 'Spare Parts (Lamps, Ballasts, etc.) Required'?","Yes, No"
+225,Light Fixtures and Lamps,"Regarding Light Fixtures and Lamps, what is the specification for 'Aiming Lamp/Labor Allowance Required'?","Yes, No"
+226,Light Fixtures and Lamps,"Regarding Light Fixtures and Lamps, what is the specification for 'Clean Fixture/Labor Allowance Required'?","Yes, No"
+227,Light Fixtures and Lamps,"Regarding Light Fixtures and Lamps, what is the specification for 'Fire Rated Enclosure'?","Yes, No"
+228,Light Fixtures and Lamps,Are there any additional notes or information specified for Light Fixtures and Lamps?,Extract explicit value from text
+229,Telecom System,What is the designated Spec Section for Telecom System?,Extract explicit value from text
+230,Telecom System,"Regarding Telecom System, what is the specification for 'Telecom Quote Required for Electrical Proposal'?","Yes, No"
+231,Telecom System,"Regarding Telecom System, what is the specification for 'Raceway System'?","Stub Up, Ring and String, Complete System, Open Cabling"
+232,Telecom System,"Regarding Telecom System, what is the specification for 'Minimum Conduit Size'?","1/2"", 3/4"", 1"", 1 1/4"""
+233,Telecom System,"Regarding Telecom System, what is the specification for 'Cable Type'?","Plenum, Non-Plenum"
+234,Telecom System,"Regarding Telecom System, what is the specification for 'Specialty Cable'?","Supplied by Sub, Supplied by EC"
+235,Telecom System,"Regarding Telecom System, what is the specification for 'Pulling of Specialty Cable'?","Subcontractor, Elect. Contractor"
+236,Telecom System,"Regarding Telecom System, what is the specification for 'Testing'?","Yes, No"
+237,Telecom System,"Regarding Telecom System, what is the specification for 'Training'?","Yes, No"
+238,Telecom System,"Regarding Telecom System, what is the specification for 'Spare Materials'?","Yes, No"
+239,Telecom System,Are there any additional notes or information specified for Telecom System?,Extract explicit value from text
+240,Audio/Video System,What is the designated Spec Section for Audio/Video System?,Extract explicit value from text
+241,Audio/Video System,"Regarding Audio/Video System, what is the specification for 'A/V Quote Required for Electrical Proposal'?","Yes, No"
+242,Audio/Video System,"Regarding Audio/Video System, what is the specification for 'Raceway System'?","Stub Up, Ring and String, Complete System, Open Cabling"
+243,Audio/Video System,"Regarding Audio/Video System, what is the specification for 'Minimum Conduit Size'?","1/2"", 3/4"", 1"", 1 1/4"""
+244,Audio/Video System,"Regarding Audio/Video System, what is the specification for 'Cable Type'?","Plenum, Non-Plenum"
+245,Audio/Video System,"Regarding Audio/Video System, what is the specification for 'Specialty Cable'?","Supplied by Sub, Supplied by EC"
+246,Audio/Video System,"Regarding Audio/Video System, what is the specification for 'Pulling of Specialty Cable'?","Subcontractor, Elect. Contractor"
+247,Audio/Video System,"Regarding Audio/Video System, what is the specification for 'Testing'?","Yes, No"
+248,Audio/Video System,"Regarding Audio/Video System, what is the specification for 'Training'?","Yes, No"
+249,Audio/Video System,"Regarding Audio/Video System, what is the specification for 'Spare Materials'?","Yes, No"
+250,Audio/Video System,Are there any additional notes or information specified for Audio/Video System?,Extract explicit value from text
+251,Public Address/Intercom System,What is the designated Spec Section for Public Address/Intercom System?,Extract explicit value from text
+252,Public Address/Intercom System,"Regarding Public Address/Intercom System, what is the specification for 'P/A Intercom Quote Required for Electrical Proposal'?","Yes, No"
+253,Public Address/Intercom System,"Regarding Public Address/Intercom System, what is the specification for 'Raceway System'?","Stub Up, Complete System"
+254,Public Address/Intercom System,"Regarding Public Address/Intercom System, what is the specification for 'Minimum Conduit Size'?","1/2"", 3/4"", 1"", 1 1/4"""
+255,Public Address/Intercom System,"Regarding Public Address/Intercom System, what is the specification for 'Cable Type'?","Plenum, Non-Plenum"
+256,Public Address/Intercom System,"Regarding Public Address/Intercom System, what is the specification for 'Specialty Cable'?","Supplied by Sub, Supplied by EC"
+257,Public Address/Intercom System,"Regarding Public Address/Intercom System, what is the specification for 'Pulling of Specialty Cable'?","Subcontractor, Elect. Contractor"
+258,Public Address/Intercom System,"Regarding Public Address/Intercom System, what is the specification for 'Testing'?","Yes, No"
+259,Public Address/Intercom System,"Regarding Public Address/Intercom System, what is the specification for 'Training'?","Yes, No"
+260,Public Address/Intercom System,"Regarding Public Address/Intercom System, what is the specification for 'Spare Materials'?","Yes, No"
+261,Public Address/Intercom System,Are there any additional notes or information specified for Public Address/Intercom System?,Extract explicit value from text
+262,Distributed Antenna System (DAS),What is the designated Spec Section for Distributed Antenna System (DAS)?,Extract explicit value from text
+263,Distributed Antenna System (DAS),"Regarding Distributed Antenna System (DAS), what is the specification for 'DAS Quote Required for Electrical Proposal'?","Yes, No"
+264,Distributed Antenna System (DAS),"Regarding Distributed Antenna System (DAS), what is the specification for 'Raceway System'?","Stub Up, Ring and String, Complete System, Open Cabling"
+265,Distributed Antenna System (DAS),"Regarding Distributed Antenna System (DAS), what is the specification for 'Minimum Conduit Size'?","1/2"", 3/4"", 1"", 1 1/4"""
+266,Distributed Antenna System (DAS),"Regarding Distributed Antenna System (DAS), what is the specification for 'Cable Type'?","Plenum, Non-Plenum"
+267,Distributed Antenna System (DAS),"Regarding Distributed Antenna System (DAS), what is the specification for 'Specialty Cable'?","Supplied by Sub, Supplied by EC"
+268,Distributed Antenna System (DAS),"Regarding Distributed Antenna System (DAS), what is the specification for 'Pulling of Specialty Cable'?","Subcontractor, Elect. Contractor"
+269,Distributed Antenna System (DAS),"Regarding Distributed Antenna System (DAS), what is the specification for 'Testing'?","Yes, No"
+270,Distributed Antenna System (DAS),"Regarding Distributed Antenna System (DAS), what is the specification for 'Training'?","Yes, No"
+271,Distributed Antenna System (DAS),"Regarding Distributed Antenna System (DAS), what is the specification for 'Spare Materials'?","Yes, No"
+272,Distributed Antenna System (DAS),Are there any additional notes or information specified for Distributed Antenna System (DAS)?,Extract explicit value from text
+273,CATV System,What is the designated Spec Section for CATV System?,Extract explicit value from text
+274,CATV System,"Regarding CATV System, what is the specification for 'CATV Quote Required for Electrical Proposal'?","Yes, No"
+275,CATV System,"Regarding CATV System, what is the specification for 'Raceway System'?","Stub Up, Ring and String, Complete System, Open Cabling"
+276,CATV System,"Regarding CATV System, what is the specification for 'Minimum Conduit Size'?","1/2"", 3/4"", 1"", 1 1/4"""
+277,CATV System,"Regarding CATV System, what is the specification for 'Cable Type'?","Plenum, Non-Plenum"
+278,CATV System,"Regarding CATV System, what is the specification for 'Specialty Cable'?","Supplied by Sub, Supplied by EC"
+279,CATV System,"Regarding CATV System, what is the specification for 'Pulling of Specialty Cable'?","Subcontractor, Elect. Contractor"
+280,CATV System,"Regarding CATV System, what is the specification for 'Testing'?","Yes, No"
+281,CATV System,"Regarding CATV System, what is the specification for 'Training'?","Yes, No"
+282,CATV System,"Regarding CATV System, what is the specification for 'Spare Materials'?","Yes, No"
+283,CATV System,Are there any additional notes or information specified for CATV System?,Extract explicit value from text
+284,Sound System,What is the designated Spec Section for Sound System?,Extract explicit value from text
+285,Sound System,"Regarding Sound System, what is the specification for 'Sound System Quote Required for Electrical Proposal'?","Yes, No"
+286,Sound System,"Regarding Sound System, what is the specification for 'Gymnasium Sound System Quote Required'?","Yes, No"
+287,Sound System,"Regarding Sound System, what is the specification for 'Raceway System'?","Stub Up, Complete System"
+288,Sound System,"Regarding Sound System, what is the specification for 'Minimum Conduit Size'?","1/2"", 3/4"", 1"", 1 1/4"""
+289,Sound System,"Regarding Sound System, what is the specification for 'Cable Type'?","Plenum, Non-Plenum"
+290,Sound System,"Regarding Sound System, what is the specification for 'Specialty Cable'?","Supplied by Sub, Supplied by EC"
+291,Sound System,"Regarding Sound System, what is the specification for 'Pulling of Specialty Cable'?","Subcontractor, Elect. Contractor"
+292,Sound System,"Regarding Sound System, what is the specification for 'Testing'?","Yes, No"
+293,Sound System,"Regarding Sound System, what is the specification for 'Training'?","Yes, No"
+294,Sound System,"Regarding Sound System, what is the specification for 'Spare Materials'?","Yes, No"
+295,Sound System,Are there any additional notes or information specified for Sound System?,Extract explicit value from text
+296,Clock System,What is the designated Spec Section for Clock System?,Extract explicit value from text
+297,Clock System,"Regarding Clock System, what is the specification for 'Clock System Quote Required for Electrical Proposal'?","Yes, No"
+298,Clock System,"Regarding Clock System, what is the specification for 'Raceway System'?","Stub Up, Complete System"
+299,Clock System,"Regarding Clock System, what is the specification for 'Minimum Conduit Size'?","1/2"", 3/4"", 1"", 1 1/4"""
+300,Clock System,"Regarding Clock System, what is the specification for 'Cable Type'?","Plenum, Non-Plenum"
+301,Clock System,"Regarding Clock System, what is the specification for 'Specialty Cable'?","Supplied by Sub, Supplied by EC"
+302,Clock System,"Regarding Clock System, what is the specification for 'Pulling of Specialty Cable'?","Subcontractor, Elect. Contractor"
+303,Clock System,"Regarding Clock System, what is the specification for 'Testing'?","Yes, No"
+304,Clock System,"Regarding Clock System, what is the specification for 'Training'?","Yes, No"
+305,Clock System,"Regarding Clock System, what is the specification for 'Spare Materials'?","Yes, No"
+306,Clock System,Are there any additional notes or information specified for Clock System?,Extract explicit value from text
+307,Nurse Call System,What is the designated Spec Section for Nurse Call System?,Extract explicit value from text
+308,Nurse Call System,"Regarding Nurse Call System, what is the specification for 'Nurse Call Quote Required for Electrical Proposal'?","Yes, No"
+309,Nurse Call System,"Regarding Nurse Call System, what is the specification for 'Raceway System'?","Stub Up, Complete System"
+310,Nurse Call System,"Regarding Nurse Call System, what is the specification for 'Minimum Conduit Size'?","1/2"", 3/4"", 1"", 1 1/4"""
+311,Nurse Call System,"Regarding Nurse Call System, what is the specification for 'Cable Type'?","Plenum, Non-Plenum"
+312,Nurse Call System,"Regarding Nurse Call System, what is the specification for 'Specialty Cable'?","Supplied by Sub, Supplied by EC"
+313,Nurse Call System,"Regarding Nurse Call System, what is the specification for 'Pulling of Specialty Cable'?","Subcontractor, Elect. Contractor"
+314,Nurse Call System,"Regarding Nurse Call System, what is the specification for 'Testing'?","Yes, No"
+315,Nurse Call System,"Regarding Nurse Call System, what is the specification for 'Training'?","Yes, No"
+316,Nurse Call System,"Regarding Nurse Call System, what is the specification for 'Spare Materials'?","Yes, No"
+317,Nurse Call System,Are there any additional notes or information specified for Nurse Call System?,Extract explicit value from text
+318,Security/Intrusion System,What is the designated Spec Section for Security/Intrusion System?,Extract explicit value from text
+319,Security/Intrusion System,"Regarding Security/Intrusion System, what is the specification for 'Security Quote Required for Electrical Proposal'?","Yes, No"
+320,Security/Intrusion System,"Regarding Security/Intrusion System, what is the specification for 'Raceway System'?","Stub Up, Complete System"
+321,Security/Intrusion System,"Regarding Security/Intrusion System, what is the specification for 'Minimum Conduit Size'?","1/2"", 3/4"", 1"", 1 1/4"""
+322,Security/Intrusion System,"Regarding Security/Intrusion System, what is the specification for 'Cable Type'?","Plenum, Non-Plenum"
+323,Security/Intrusion System,"Regarding Security/Intrusion System, what is the specification for 'Specialty Cable'?","Supplied by Sub, Supplied by EC"
+324,Security/Intrusion System,"Regarding Security/Intrusion System, what is the specification for 'Pulling of Specialty Cable'?","Subcontractor, Elect. Contractor"
+325,Security/Intrusion System,"Regarding Security/Intrusion System, what is the specification for 'Testing'?","Yes, No"
+326,Security/Intrusion System,"Regarding Security/Intrusion System, what is the specification for 'Training'?","Yes, No"
+327,Security/Intrusion System,"Regarding Security/Intrusion System, what is the specification for 'Spare Materials'?","Yes, No"
+328,Security/Intrusion System,Are there any additional notes or information specified for Security/Intrusion System?,Extract explicit value from text
+329,Card Access System,What is the designated Spec Section for Card Access System?,Extract explicit value from text
+330,Card Access System,"Regarding Card Access System, what is the specification for 'Card Access Quote Required for Electrical Proposal'?","Yes, No"
+331,Card Access System,"Regarding Card Access System, what is the specification for 'Raceway System'?","Stub Up, Complete System"
+332,Card Access System,"Regarding Card Access System, what is the specification for 'Minimum Conduit Size'?","1/2"", 3/4"", 1"", 1 1/4"""
+333,Card Access System,"Regarding Card Access System, what is the specification for 'Cable Type'?","Plenum, Non-Plenum"
+334,Card Access System,"Regarding Card Access System, what is the specification for 'Specialty Cable'?","Supplied by Sub, Supplied by EC"
+335,Card Access System,"Regarding Card Access System, what is the specification for 'Pulling of Specialty Cable'?","Subcontractor, Elect. Contractor"
+336,Card Access System,"Regarding Card Access System, what is the specification for 'Testing'?","Yes, No"
+337,Card Access System,"Regarding Card Access System, what is the specification for 'Training'?","Yes, No"
+338,Card Access System,"Regarding Card Access System, what is the specification for 'Spare Materials'?","Yes, No"
+339,Card Access System,Are there any additional notes or information specified for Card Access System?,Extract explicit value from text
+340,CCTV Surveillance System,What is the designated Spec Section for CCTV Surveillance System?,Extract explicit value from text
+341,CCTV Surveillance System,"Regarding CCTV Surveillance System, what is the specification for 'CCTV Quote Required for Electrical Proposal'?","Yes, No"
+342,CCTV Surveillance System,"Regarding CCTV Surveillance System, what is the specification for 'Raceway System'?","Stub Up, Complete System"
+343,CCTV Surveillance System,"Regarding CCTV Surveillance System, what is the specification for 'Minimum Conduit Size'?","1/2"", 3/4"", 1"", 1 1/4"""
+344,CCTV Surveillance System,"Regarding CCTV Surveillance System, what is the specification for 'Cable Type'?","Plenum, Non-Plenum"
+345,CCTV Surveillance System,"Regarding CCTV Surveillance System, what is the specification for 'Specialty Cable'?","Supplied by Sub, Supplied by EC"
+346,CCTV Surveillance System,"Regarding CCTV Surveillance System, what is the specification for 'Pulling of Specialty Cable'?","Subcontractor, Elect. Contractor"
+347,CCTV Surveillance System,"Regarding CCTV Surveillance System, what is the specification for 'Testing'?","Yes, No"
+348,CCTV Surveillance System,"Regarding CCTV Surveillance System, what is the specification for 'Training'?","Yes, No"
+349,CCTV Surveillance System,"Regarding CCTV Surveillance System, what is the specification for 'Spare Materials'?","Yes, No"
+350,CCTV Surveillance System,Are there any additional notes or information specified for CCTV Surveillance System?,Extract explicit value from text
+351,Fire Alarm System,What is the designated Spec Section for Fire Alarm System?,Extract explicit value from text
+352,Fire Alarm System,"Regarding Fire Alarm System, what is the specification for 'Fire Alarm Quote Required for Electrical Proposal'?","Yes, No"
+353,Fire Alarm System,"Regarding Fire Alarm System, what is the specification for 'Area of Rescue Required with Proposal'?","Yes, No"
+354,Fire Alarm System,"Regarding Fire Alarm System, what is the specification for 'Approved Manufacturers'?","Notifier, EST, Simplex, Siemens, Other"
+355,Fire Alarm System,"Regarding Fire Alarm System, what is the specification for 'Raceways Systems'?","Stub Up, Complete System"
+356,Fire Alarm System,"Regarding Fire Alarm System, what is the specification for 'Minimum Conduit Size'?","1/2"", 3/4"", 1"", 1 1/4"""
+357,Fire Alarm System,"Regarding Fire Alarm System, what is the specification for 'Extended Warranty Required'?","Yes, No"
+358,Fire Alarm System,"Regarding Fire Alarm System, what is the specification for 'Extended Service Agreement Required'?","Yes, No"
+359,Fire Alarm System,Are there any additional notes or information specified for Fire Alarm System?,Extract explicit value from text
+360,Other Systems,"Regarding Other Systems, what is the specification for 'Heat Trace'?","Yes, No"
+361,Other Systems,"Regarding Other Systems - Heat Trace, what is the specified 'Division'?",Extract explicit value from text
+362,Other Systems,"Regarding Other Systems, what is the specification for 'Assisted Listening'?","Yes, No"
+363,Other Systems,"Regarding Other Systems - Assisted Listening, what is the specified 'Division'?",Extract explicit value from text
+364,Other Systems,"Regarding Other Systems, what is the specification for 'Leak Detection'?","Yes, No"
+365,Other Systems,"Regarding Other Systems - Leak Detection, what is the specified 'Division'?",Extract explicit value from text
+366,Other Systems,"Regarding Other Systems, what is the specification for 'Gas Detection'?","Yes, No"
+367,Other Systems,"Regarding Other Systems - Gas Detection, what is the specified 'Division'?",Extract explicit value from text
+368,Other Systems,"Regarding Other Systems, what is the specification for 'Hydrocarbon Detection/Sensing'?","Yes, No"
+369,Other Systems,"Regarding Other Systems - Hydrocarbon Detection/Sensing, what is the specified 'Division'?",Extract explicit value from text
+370,Other Systems,"Regarding Other Systems, what is the specification for 'CO/CO2 Monitoring'?","Yes, No"
+371,Other Systems,"Regarding Other Systems - CO/CO2 Monitoring, what is the specified 'Division'?",Extract explicit value from text
+372,Other Systems,"Regarding Other Systems, what is the specification for 'Is There Electrical on Other Drawings'?","Yes, No"
+373,Other Systems,"Regarding Other Systems, what is the specification for 'VE Possibilities'?","Yes, No"
+374,Other Systems,"Regarding Other Systems, what is the specification for 'Other Systems'?",Extract explicit value from text
+375,Other Systems,Are there any additional notes or information specified for Other Systems?,Extract explicit value from text
+376,Furnished by Others,"Regarding Furnished by Others, what is the specification for 'We Review Submittals'?","Yes, No"
+377,Furnished by Others,"Regarding Furnished by Others, what is the specification for 'We Receive'?","Yes, No"
+378,Furnished by Others,"Regarding Furnished by Others, what is the specification for 'We Store'?","Yes, No"
+379,Furnished by Others,"Regarding Furnished by Others, what is the specification for 'Storage Needed'?","Yes, No"
+380,Furnished by Others,"Regarding Furnished by Others, what is the specification for 'Storage Bonded'?","Yes, No"
+381,Furnished by Others,Are there any additional notes or information specified for Furnished by Others?,Extract explicit value from text
