@@ -12,7 +12,7 @@ I'll walk through how it actually works - including a trick where you run the pi
 Devs curious about wiring up AI to real document workflows. You may pick up some patterns you can steal for your own projects.
 
 ## 4. Anything we can help with?
-Tag me on socials if you share it. https://x.com/truevis 
+Contact sesha.kalyanam@hayselectrical.com. 
 
 ## 5. How long?
 20ish minutes.

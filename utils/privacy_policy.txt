@@ -23,7 +23,7 @@ Deleting a visible chat removes it from your chat history list. Operational audi
 - We may disclose data when required by law or to protect rights, safety, and service integrity.
 
 ### Model provider processing
-Third-party APIs process parts of each request—for example prompts, retrieved specification excerpts for context, embeddings, or candidate passages for reordering results. **[OpenRouter](https://openrouter.ai/privacy)** handles chat completions and embeddings; **[Voyage AI](https://www.voyageai.com/privacy)** handles search-result reranking. See each linked privacy policy for how that provider collects, uses, and retains data (including subprocessors routed through OpenRouter).
+Third-party APIs process parts of each request—for example prompts, retrieved specification excerpts, and embeddings. **[OpenAI](https://openai.com/policies/privacy-policy)** handles chat answers and embeddings. Indexed specification text and embeddings are stored in **[Neon](https://neon.tech/privacy-policy)**. See each linked privacy policy for how that provider collects, uses, and retains data.
 
 ### AI and Accuracy Notice
 This app uses Large Language Models (LLMs). AI outputs can be incomplete or incorrect and should not be treated as the sole source of truth. Always verify important decisions against official contract/specification documents and project records.
