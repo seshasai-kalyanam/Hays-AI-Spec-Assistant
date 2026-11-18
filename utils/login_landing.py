@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import base64
+import re
 from pathlib import Path
 
 import streamlit as st
@@ -53,6 +54,35 @@ def render_hays_app_header() -> None:
 
 def _render_landing_header() -> None:
     render_hays_app_header()
+
+
+_EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+
+def valid_guest_email(value: str) -> bool:
+    """True when the value looks like an email address."""
+    return bool(_EMAIL_RE.match((value or "").strip()))
+
+
+def render_guest_email_gate() -> bool:
+    """Ask for an email until one is stored. Returns True when the app can continue."""
+    current = str(st.session_state.get("guest_email") or "").strip()
+    if valid_guest_email(current):
+        return True
+
+    inject_gpt_inspired_layout_css()
+    render_hays_app_header()
+    st.markdown("Enter your email to use the assistant. It is saved with your questions so we know who asked them.")
+    with st.form("guest_email_form", border=False):
+        email = st.text_input("Email", placeholder="name@hayselectrical.com")
+        submitted = st.form_submit_button("Continue", type="primary")
+    if submitted:
+        cleaned = (email or "").strip()
+        if valid_guest_email(cleaned):
+            st.session_state.guest_email = cleaned
+            st.rerun()
+        st.error("Enter a valid email address.")
+    return False
 
 
 def render_logged_out_page(*, show_privacy: bool = True) -> None:

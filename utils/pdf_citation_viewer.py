@@ -13,16 +13,28 @@ PDF_VIEWER_HEIGHT_PX = 600
 
 @dataclass(frozen=True)
 class SourceCitation:
-    """A source line with an extracted one-based PDF page number."""
+    """A source line with the PDF pages it points at."""
 
     line: str
     page: int
+    page_end: int = 0
+
+    def source_pages(self) -> list[int]:
+        """One-based pages, capped so a wide range does not render the whole PDF."""
+        end = self.page_end or self.page
+        end = max(self.page, min(end, self.page + 3))
+        return list(range(self.page, end + 1))
 
 
 _SOURCE_BULLET_PREFIX_RE = re.compile(r"^\s*[-*•]\s+")
 _SOURCE_LINE_RE = re.compile(
-    r"^(?P<line>Source\s+\d+\s*:\s*.*?\bPage\s+(?P<page>\d+)\b.*)$",
+    r"^(?P<line>Source\s+\d+\s*:\s*.*?\bPages?\s+(?P<start>\d+)"
+    r"(?:\s*[-–—]\s*(?P<end>\d+))?\b.*)$",
     re.IGNORECASE,
+)
+_SECTION_NUMBER_RE = re.compile(r"\b\d{2}(?:\s+\d{2}){1,3}\b")
+_CONTENT_PHRASE_RE = re.compile(
+    r"\b[A-Z][\w&.'/-]*(?:\s+[A-Z0-9][\w&.'/-]*){1,5}"
 )
 
 
@@ -39,6 +51,13 @@ def _match_source_line(line: str) -> re.Match[str] | None:
     return _SOURCE_LINE_RE.match(normalized)
 
 
+def _citation_from_match(match: re.Match[str]) -> SourceCitation:
+    start = int(match.group("start"))
+    end_raw = match.group("end")
+    end = int(end_raw) if end_raw else start
+    return SourceCitation(line=match.group("line").strip(), page=start, page_end=end)
+
+
 def count_pdf_pages(pdf_bytes: bytes) -> int:
     """Return the number of pages in a PDF byte stream."""
     matches = re.findall(rb"/Type\s*/Page\b", pdf_bytes)
@@ -53,10 +72,9 @@ def extract_source_citations(text: str) -> list[SourceCitation]:
         if not match:
             continue
         try:
-            page = int(match.group("page"))
+            citations.append(_citation_from_match(match))
         except ValueError:
             continue
-        citations.append(SourceCitation(line=match.group("line").strip(), page=page))
     return citations
 
 
@@ -191,22 +209,112 @@ def _render_page_nav(slider_key: str, nav_key: str, page_count: int) -> None:
         )
 
 
-def _set_selected_citation_page(page: int, pdf_name: str | None = None) -> None:
+def _highlight_phrases(answer_text: str, citation: SourceCitation) -> list[str]:
+    """Section number plus a few proper names from the answer, for PDF highlights."""
+    phrases: list[str] = []
+    section = _SECTION_NUMBER_RE.search(citation.line or "")
+    if section:
+        phrases.append(section.group(0))
+    body = re.split(r"(?im)^\s*\**sources\**\s*$", answer_text or "", maxsplit=1)[0]
+    for phrase in _CONTENT_PHRASE_RE.findall(body):
+        cleaned = phrase.strip(" .")
+        if len(cleaned) < 8 or cleaned in phrases:
+            continue
+        phrases.append(cleaned)
+        if len(phrases) >= 4:
+            break
+    return phrases
+
+
+def _highlight_annotations(
+    pdf_bytes: bytes, pages: list[int], phrases: list[str]
+) -> list[dict]:
+    """Yellow boxes over matching text. Coordinates use the top-left of the page."""
+    if not pdf_bytes or not pages or not phrases:
+        return []
+    try:
+        import pypdfium2 as pdfium
+    except Exception:
+        return []
+
+    annotations: list[dict] = []
+    pdf = pdfium.PdfDocument(pdf_bytes)
+    try:
+        for page_number in pages:
+            if page_number < 1 or page_number > len(pdf) or len(annotations) >= 12:
+                continue
+            page = pdf[page_number - 1]
+            page_height = float(page.get_height())
+            textpage = page.get_textpage()
+            try:
+                for phrase in phrases:
+                    if len(annotations) >= 12:
+                        break
+                    searcher = textpage.search(phrase, match_case=False)
+                    hits = 0
+                    try:
+                        while hits < 2 and len(annotations) < 12:
+                            found = searcher.get_next()
+                            if not found:
+                                break
+                            start, count = found
+                            for rect_index in range(textpage.count_rects(start, count)):
+                                left, bottom, right, top = textpage.get_rect(rect_index)
+                                annotations.append(
+                                    {
+                                        "page": page_number,
+                                        "x": round(float(left), 2),
+                                        "y": round(page_height - float(top), 2),
+                                        "width": round(max(float(right) - float(left), 4.0), 2),
+                                        "height": round(max(float(top) - float(bottom), 4.0), 2),
+                                        "color": "yellow",
+                                    }
+                                )
+                                hits += 1
+                                if hits >= 2 or len(annotations) >= 12:
+                                    break
+                    finally:
+                        searcher.close()
+            finally:
+                textpage.close()
+                page.close()
+    except Exception:
+        return annotations
+    finally:
+        pdf.close()
+    return annotations
+
+
+def _open_source(pages: list[int], pdf_name: str | None, phrases: list[str]) -> None:
+    """Show the cited pages in the viewer and remember what to highlight."""
     selected_name = pdf_name or _select_default_pdf_name()
-    if not selected_name:
+    if not selected_name or not pages:
         return
-    bounded_page = max(1, page)
+    first_page = max(1, int(pages[0]))
     st.session_state.selected_citation_pdf = selected_name
-    st.session_state.selected_citation_page = bounded_page
+    st.session_state.selected_citation_page = first_page
+    st.session_state.selected_citation_pages = [max(1, int(page)) for page in pages]
+    st.session_state.citation_highlight_phrases = list(phrases or [])
     files_by_upload = st.session_state.get("pdf_viewer_files_by_upload") or {}
     pdf_bytes = files_by_upload.get(selected_name)
-    if pdf_bytes is not None:
-        page_count = count_pdf_pages(pdf_bytes)
-        bounded = min(bounded_page, page_count)
-        slider_key = _slider_key_for_pdf(selected_name, pdf_bytes)
-        nav_key = _nav_input_key_for_pdf(selected_name, pdf_bytes)
-        st.session_state[slider_key] = bounded
-        st.session_state[nav_key] = bounded
+    if pdf_bytes is None:
+        return
+    page_count = count_pdf_pages(pdf_bytes)
+    bounded = min(first_page, page_count)
+    st.session_state.selected_citation_pages = [
+        page for page in st.session_state.selected_citation_pages if page <= page_count
+    ] or [bounded]
+    slider_key = _slider_key_for_pdf(selected_name, pdf_bytes)
+    nav_key = _nav_input_key_for_pdf(selected_name, pdf_bytes)
+    st.session_state[slider_key] = bounded
+    st.session_state[nav_key] = bounded
+
+
+def _browse_single_page(slider_key: str) -> None:
+    """Manual page changes leave the cited range and show one page."""
+    st.session_state.selected_citation_pages = [int(st.session_state[slider_key])]
+    st.session_state.citation_highlight_phrases = []
+    st.session_state.selected_citation_page = int(st.session_state[slider_key])
 
 
 def _split_response_segments(
@@ -238,15 +346,7 @@ def _split_response_segments(
         match = _match_source_line(line)
         if match:
             flush_markdown()
-            citation_buffer.append(
-                (
-                    line_index,
-                    SourceCitation(
-                        line=match.group("line").strip(),
-                        page=int(match.group("page")),
-                    ),
-                )
-            )
+            citation_buffer.append((line_index, _citation_from_match(match)))
             continue
         flush_citations()
         markdown_buffer.append(line)
@@ -260,8 +360,9 @@ def _render_citation_rows(
     citations: list[tuple[int, SourceCitation]],
     message_key: str,
     segment_index: int,
+    answer_text: str,
 ) -> None:
-    """Render source lines with View page actions in a compact vertical stack."""
+    """Render source lines with a button that opens those PDF pages."""
     loaded_names = [
         name.strip()
         for name in (st.session_state.get("loaded_pdf_names") or [])
@@ -280,12 +381,16 @@ def _render_citation_rows(
             with action_col:
                 pdf_name = parse_pdf_name_from_source_line(citation.line, loaded_names)
                 st.button(
-                    "View page",
+                    "View source",
                     key=f"view_citation_{message_key}_{line_index}_{citation_index}",
                     type="secondary",
                     width="stretch",
-                    on_click=_set_selected_citation_page,
-                    args=(citation.page, pdf_name),
+                    on_click=_open_source,
+                    args=(
+                        citation.source_pages(),
+                        pdf_name,
+                        _highlight_phrases(answer_text, citation),
+                    ),
                 )
 
 
@@ -296,7 +401,7 @@ def render_response_with_citation_actions(text: str, message_key: str) -> None:
         if segment_type == "markdown":
             st.markdown(content)
             continue
-        _render_citation_rows(content, message_key, citation_segment_index)
+        _render_citation_rows(content, message_key, citation_segment_index, text)
         citation_segment_index += 1
 
 
@@ -317,12 +422,15 @@ def render_pdf_page(pdf_bytes: bytes, filename: str, page: int) -> None:
 
     _sync_nav_from_slider(slider_key, nav_key)
 
-    info_col, nav_col = st.columns(
-        [1.4, 1], gap="small", vertical_alignment="center"
-    )
-    with info_col:
-        st.caption(f"Viewing **{filename}**")
-    with nav_col:
+    source_pages = [
+        page_number
+        for page_number in (st.session_state.get("selected_citation_pages") or [bounded_page])
+        if 1 <= int(page_number) <= page_count
+    ] or [bounded_page]
+    st.caption(f"Viewing **{filename}**")
+    if len(source_pages) > 1:
+        st.caption(f"Source pages {source_pages[0]}–{source_pages[-1]}")
+    with st.container(key=f"hays_page_nav_{filename}"):
         _render_page_nav(slider_key, nav_key, page_count)
 
     page_col, zoom_col = st.columns(2, gap="small")
@@ -332,6 +440,8 @@ def render_pdf_page(pdf_bytes: bytes, filename: str, page: int) -> None:
             min_value=1,
             max_value=page_count,
             key=slider_key,
+            on_change=_browse_single_page,
+            args=(slider_key,),
         )
     with zoom_col:
         zoom_percent = st.slider(
@@ -344,13 +454,18 @@ def render_pdf_page(pdf_bytes: bytes, filename: str, page: int) -> None:
         )
 
     st.session_state.selected_citation_page = selected_page
+    if selected_page not in source_pages:
+        source_pages = [selected_page]
+    phrases = st.session_state.get("citation_highlight_phrases") or []
+    annotations = _highlight_annotations(pdf_bytes, source_pages, phrases)
     pdf_viewer(
         pdf_bytes,
-        pages_to_render=[selected_page],
+        pages_to_render=source_pages,
+        annotations=annotations,
         width="100%",
-        height=PDF_VIEWER_HEIGHT_PX,
+        height=min(980, 560 * len(source_pages)),
         zoom_level=zoom_percent / 100.0,
-        show_page_separator=False,
+        show_page_separator=len(source_pages) > 1,
     )
 
 

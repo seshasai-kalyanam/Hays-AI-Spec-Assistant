@@ -26,7 +26,11 @@ from utils.config_vars import (
     about,
     system_prompt,
 )
-from utils.login_landing import load_privacy_policy_text, render_hays_app_header, render_logged_out_page
+from utils.login_landing import (
+    load_privacy_policy_text,
+    render_guest_email_gate,
+    render_hays_app_header,
+)
 from utils.docx_utils import convert_md_to_docx, get_docx_bytes
 from utils.feedback_ui import feedback_buttons_fragment
 from utils.llm_errors import format_llm_error
@@ -95,6 +99,7 @@ def _reload_project_modules():
     _reload_module_by_name("utils.chat_threads")
     pcv = _reload_module_by_name("utils.pdf_citation_viewer")
     _reload_module_by_name("utils.ui_theme")
+    landing = _reload_module_by_name("utils.login_landing")
     a0 = _reload_module_by_name("utils.auth0_utils")
     nu = _reload_module_by_name("utils.neon_utils")
     fu = _reload_module_by_name("utils.feedback_ui")
@@ -138,6 +143,8 @@ def _reload_project_modules():
     g["get_user_email"] = a0.get_user_email
     g["get_user_attribute"] = a0.get_user_attribute
     g["is_user_logged_in"] = a0.is_user_logged_in
+    g["render_guest_email_gate"] = landing.render_guest_email_gate
+    g["render_hays_app_header"] = landing.render_hays_app_header
 
     g["create_log_entry"] = nu.create_log_entry
 
@@ -455,7 +462,13 @@ def _render_sidebar(
         st.markdown(about)
 
     with st.expander("Account", expanded=False):
-        display_user_profile(sidebar_account=True)
+        if is_user_logged_in():
+            display_user_profile(sidebar_account=True)
+        else:
+            st.markdown(f"**Email:** {get_user_email() or ''}")
+            if st.button("Change email", key="change_guest_email"):
+                st.session_state.pop("guest_email", None)
+                st.rerun()
 
     with st.expander("Privacy Policy", expanded=False):
         st.markdown(load_privacy_policy_text())
@@ -541,22 +554,15 @@ def main():
     if _use_importlib_reloads():
         _reload_project_modules()
 
-    logged_in = is_user_logged_in()
     st.set_page_config(
         page_title="Hays Specifications Assistant",
         page_icon="img/favicon.ico",
         layout="wide",
-        initial_sidebar_state="expanded" if logged_in else "collapsed",
+        initial_sidebar_state="expanded",
     )
-
-    if not logged_in:
-        st.session_state["authenticated"] = False
-        render_logged_out_page()
+    if not render_guest_email_gate():
         st.stop()
 
-    require_login()
-    require_verified_email()
-    require_allowed_domain()
     utils.app_state.bootstrap()
     utils.ui_theme.inject_gpt_inspired_layout_css()
 
@@ -614,170 +620,171 @@ def main():
             checklist_nav_disabled=pdf_checklist_nav_disabled(),
         )
 
-    # Main chat area - two columns
-    col1, col2 = st.columns([3, 2])
+    # Main chat area. The right column stays wide enough for the PDF page.
+    with st.container(key="hays_workspace"):
+        col1, col2 = st.columns([1.15, 1], gap="medium")
 
-    with col1:
-        render_hays_app_header()
+        with col1:
+            render_hays_app_header()
 
-        render_pdf_uploader()
+            render_pdf_uploader()
 
-        if hasattr(st.session_state, "process_question"):
-            sample_question = (st.session_state.get("process_question") or "").strip()
-            if sample_question:
-                append_user_message(sample_question)
-            del st.session_state.process_question
+            if hasattr(st.session_state, "process_question"):
+                sample_question = (st.session_state.get("process_question") or "").strip()
+                if sample_question:
+                    append_user_message(sample_question)
+                del st.session_state.process_question
 
-        # Display chat messages
-        # Counter that tracks the zero-based index of each assistant message
-        # among assistant messages only. It is both the qa_index (join key
-        # into log_entry_ids / feedback_states) and the assistant_message_index
-        # used to build unique Streamlit widget keys.
-        assistant_counter = -1
-        for i, message_data in enumerate(st.session_state.messages):
-            role = message_data[0]
-            message = message_data[1]
-            search_terms = message_data[2] if len(message_data) > 2 else None
-            explanation = message_data[3] if len(message_data) > 3 else None
+            # Display chat messages
+            # Counter that tracks the zero-based index of each assistant message
+            # among assistant messages only. It is both the qa_index (join key
+            # into log_entry_ids / feedback_states) and the assistant_message_index
+            # used to build unique Streamlit widget keys.
+            assistant_counter = -1
+            for i, message_data in enumerate(st.session_state.messages):
+                role = message_data[0]
+                message = message_data[1]
+                search_terms = message_data[2] if len(message_data) > 2 else None
+                explanation = message_data[3] if len(message_data) > 3 else None
 
-            if role == "assistant" and not (message or "").strip():
-                continue
-
-            if role == "assistant":
-                assistant_counter += 1
-
-            message_container = st.chat_message(role, avatar="img/user.png" if role == "user" else "img/ai.png")
-            with message_container:
-                message_clean0 = remove_context_tags(message)
-                message_clean1 = strip_html_tags(message_clean0)
-                if role == "assistant":
-                    message_clean1 = clean_llm_response(message_clean1)
-                message_clean2 = replace_dollar_with_fullwidth(message_clean1)
-                if role == "assistant":
-                    render_response_with_citation_actions(message_clean2, f"message_{i}")
-                else:
-                    st.markdown(message_clean2)
+                if role == "assistant" and not (message or "").strip():
+                    continue
 
                 if role == "assistant":
-                    qa_index = assistant_counter
-                    has_log_entry = qa_index in st.session_state.log_entry_ids
-                    feedback_buttons_fragment(
-                        qa_index, qa_index, has_log_entry,
-                        message_index=i, questions=questions,
-                    )
-                    _render_followup_buttons(i)
+                    assistant_counter += 1
 
-        # Generate new response if there's a new message
-        if st.session_state.messages and st.session_state.messages[-1][0] == "user":
-            with st.chat_message("assistant", avatar="img/ai.png"):
-                response_placeholder = st.empty()
-                final_response = ""
-                try:
-                    for response_chunk in generate_response(st.session_state.messages[-1][1]):
-                        final_response = response_chunk
-                        response_placeholder.markdown(
-                            replace_dollar_with_fullwidth(response_chunk)
-                        )
-
-                    final_response_clean = clean_llm_response(final_response)
-                    if final_response_clean != final_response:
-                        response_placeholder.markdown(
-                            replace_dollar_with_fullwidth(final_response_clean)
-                        )
-
-                    if not (final_response_clean or "").strip():
-                        response_placeholder.empty()
-                        # Placeholder assistant turn prevents re-generation on rerun.
-                        st.session_state.messages.append(("assistant", "", None))
-                        utils.chat_threads.persist_active_thread(
-                            current_user_email,
-                            force=True,
-                        )
-                        utils.chat_threads.refresh_thread_list(current_user_email)
+                message_container = st.chat_message(role, avatar="img/user.png" if role == "user" else "img/ai.png")
+                with message_container:
+                    message_clean0 = remove_context_tags(message)
+                    message_clean1 = strip_html_tags(message_clean0)
+                    if role == "assistant":
+                        message_clean1 = clean_llm_response(message_clean1)
+                    message_clean2 = replace_dollar_with_fullwidth(message_clean1)
+                    if role == "assistant":
+                        render_response_with_citation_actions(message_clean2, f"message_{i}")
                     else:
-                        st.session_state.messages.append(("assistant", final_response_clean, None))
-                        # Bind the log row id to the newly-appended assistant
-                        # message's qa_index so the feedback fragment can update it.
-                        # qa_index = count of assistant messages - 1.
-                        new_qa_index = sum(1 for m in st.session_state.messages if m[0] == "assistant") - 1
-                        new_log_id = st.session_state.pop("last_log_id", None)
-                        if new_log_id:
-                            st.session_state.log_entry_ids[new_qa_index] = new_log_id
+                        st.markdown(message_clean2)
+
+                    if role == "assistant":
+                        qa_index = assistant_counter
+                        has_log_entry = qa_index in st.session_state.log_entry_ids
+                        feedback_buttons_fragment(
+                            qa_index, qa_index, has_log_entry,
+                            message_index=i, questions=questions,
+                        )
+                        _render_followup_buttons(i)
+
+            # Generate new response if there's a new message
+            if st.session_state.messages and st.session_state.messages[-1][0] == "user":
+                with st.chat_message("assistant", avatar="img/ai.png"):
+                    response_placeholder = st.empty()
+                    final_response = ""
+                    try:
+                        for response_chunk in generate_response(st.session_state.messages[-1][1]):
+                            final_response = response_chunk
+                            response_placeholder.markdown(
+                                replace_dollar_with_fullwidth(response_chunk)
+                            )
+
+                        final_response_clean = clean_llm_response(final_response)
+                        if final_response_clean != final_response:
+                            response_placeholder.markdown(
+                                replace_dollar_with_fullwidth(final_response_clean)
+                            )
+
+                        if not (final_response_clean or "").strip():
+                            response_placeholder.empty()
+                            # Placeholder assistant turn prevents re-generation on rerun.
+                            st.session_state.messages.append(("assistant", "", None))
+                            utils.chat_threads.persist_active_thread(
+                                current_user_email,
+                                force=True,
+                            )
+                            utils.chat_threads.refresh_thread_list(current_user_email)
+                        else:
+                            st.session_state.messages.append(("assistant", final_response_clean, None))
+                            # Bind the log row id to the newly-appended assistant
+                            # message's qa_index so the feedback fragment can update it.
+                            # qa_index = count of assistant messages - 1.
+                            new_qa_index = sum(1 for m in st.session_state.messages if m[0] == "assistant") - 1
+                            new_log_id = st.session_state.pop("last_log_id", None)
+                            if new_log_id:
+                                st.session_state.log_entry_ids[new_qa_index] = new_log_id
+                            utils.chat_threads.persist_active_thread(
+                                current_user_email,
+                                force=True,
+                            )
+                            utils.chat_threads.refresh_thread_list(current_user_email)
+                            # Render feedback buttons for the just-streamed response so
+                            # the user sees them without needing another interaction.
+                            has_log_entry = new_qa_index in st.session_state.log_entry_ids
+                            new_msg_index = len(st.session_state.messages) - 1
+                            response_placeholder.empty()
+                            render_response_with_citation_actions(
+                                replace_dollar_with_fullwidth(final_response_clean),
+                                f"message_{new_msg_index}",
+                            )
+                            feedback_buttons_fragment(
+                                new_qa_index, new_qa_index, has_log_entry,
+                                message_index=new_msg_index, questions=questions,
+                            )
+                            _render_followup_buttons(new_msg_index)
+                    except Exception as e:
+                        error_text = format_llm_error(e)
+                        st.error(error_text)
+                        # Append the error as an assistant message so the user can
+                        # still flag bad failures with a thumbs-down. Log it too
+                        # and wire the new row id into log_entry_ids.
+                        error_log = _neon_log(
+                            user_prompt="show_response_error",
+                            llm_response_snippet=str(e)[:200],
+                        )
+                        st.session_state.messages.append(("assistant", error_text, None))
+                        err_qa_index = sum(1 for m in st.session_state.messages if m[0] == "assistant") - 1
+                        if error_log and error_log.get("id"):
+                            st.session_state.log_entry_ids[err_qa_index] = error_log["id"]
                         utils.chat_threads.persist_active_thread(
                             current_user_email,
                             force=True,
                         )
                         utils.chat_threads.refresh_thread_list(current_user_email)
-                        # Render feedback buttons for the just-streamed response so
-                        # the user sees them without needing another interaction.
-                        has_log_entry = new_qa_index in st.session_state.log_entry_ids
-                        new_msg_index = len(st.session_state.messages) - 1
-                        response_placeholder.empty()
-                        render_response_with_citation_actions(
-                            replace_dollar_with_fullwidth(final_response_clean),
-                            f"message_{new_msg_index}",
-                        )
+                        has_log_entry = err_qa_index in st.session_state.log_entry_ids
+                        err_msg_index = len(st.session_state.messages) - 1
                         feedback_buttons_fragment(
-                            new_qa_index, new_qa_index, has_log_entry,
-                            message_index=new_msg_index, questions=questions,
+                            err_qa_index, err_qa_index, has_log_entry,
+                            message_index=err_msg_index, questions=questions,
                         )
-                        _render_followup_buttons(new_msg_index)
-                except Exception as e:
-                    error_text = format_llm_error(e)
-                    st.error(error_text)
-                    # Append the error as an assistant message so the user can
-                    # still flag bad failures with a thumbs-down. Log it too
-                    # and wire the new row id into log_entry_ids.
-                    error_log = _neon_log(
-                        user_prompt="show_response_error",
-                        llm_response_snippet=str(e)[:200],
-                    )
-                    st.session_state.messages.append(("assistant", error_text, None))
-                    err_qa_index = sum(1 for m in st.session_state.messages if m[0] == "assistant") - 1
-                    if error_log and error_log.get("id"):
-                        st.session_state.log_entry_ids[err_qa_index] = error_log["id"]
-                    utils.chat_threads.persist_active_thread(
-                        current_user_email,
-                        force=True,
-                    )
-                    utils.chat_threads.refresh_thread_list(current_user_email)
-                    has_log_entry = err_qa_index in st.session_state.log_entry_ids
-                    err_msg_index = len(st.session_state.messages) - 1
-                    feedback_buttons_fragment(
-                        err_qa_index, err_qa_index, has_log_entry,
-                        message_index=err_msg_index, questions=questions,
-                    )
 
-        # Bottom controls in compact columns: chat input, clear chat.
-        # Per-response "Save" lives in the feedback row for each assistant
-        # message (see utils/feedback_ui.feedback_buttons_fragment).
-        has_assistant_response = any(
-            m[0] == "assistant" for m in st.session_state.messages
-        )
-
-        chat_input_col, chat_clear_col = st.columns(
-            [9, 1.2], gap="small", vertical_alignment="bottom"
-        )
-        with chat_input_col:
-            user_prompt = st.chat_input("Ask about the uploaded specification PDF(s)…")
-        with chat_clear_col:
-            st.button(
-                "Clear Chat",
-                key="clear_chat_inline",
-                type="secondary",
-                width="stretch",
-                on_click=utils.chat_threads.queue_new_thread,
-                disabled=not has_assistant_response,
+            # Bottom controls in compact columns: chat input, clear chat.
+            # Per-response "Save" lives in the feedback row for each assistant
+            # message (see utils/feedback_ui.feedback_buttons_fragment).
+            has_assistant_response = any(
+                m[0] == "assistant" for m in st.session_state.messages
             )
 
-        if user_prompt:
-            _append_prompt_to_chat(user_prompt)
-            st.rerun()
+            chat_input_col, chat_clear_col = st.columns(
+                [9, 1.2], gap="small", vertical_alignment="bottom"
+            )
+            with chat_input_col:
+                user_prompt = st.chat_input("Ask about the uploaded specification PDF(s)…")
+            with chat_clear_col:
+                st.button(
+                    "Clear Chat",
+                    key="clear_chat_inline",
+                    type="secondary",
+                    width="stretch",
+                    on_click=utils.chat_threads.queue_new_thread,
+                    disabled=not has_assistant_response,
+                )
 
-    # Right column for collected answers
-    with col2:
-        _render_collected_responses_fragment()
-        render_citation_pdf_viewer()
+            if user_prompt:
+                _append_prompt_to_chat(user_prompt)
+                st.rerun()
+
+        # Right column for collected answers
+        with col2:
+            _render_collected_responses_fragment()
+            render_citation_pdf_viewer()
 
 if __name__ == "__main__":
     main()

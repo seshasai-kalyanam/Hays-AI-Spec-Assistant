@@ -10,13 +10,7 @@ from pathlib import Path
 
 import streamlit as st
 
-from utils.auth0_utils import (
-    is_user_logged_in,
-    require_allowed_domain,
-    require_login,
-    require_verified_email,
-)
-from utils.login_landing import render_logged_out_page
+from utils.login_landing import render_guest_email_gate
 from utils.checklist_field_state import (
     diagnose_export_alignment,
     export_values,
@@ -1750,20 +1744,14 @@ def _render_footnotes_section(fields) -> None:
 
 
 def main() -> None:
-    logged_in = is_user_logged_in()
     st.set_page_config(
         page_title="Spec Checklist",
         page_icon="img/favicon.ico",
         layout="wide",
-        initial_sidebar_state="expanded" if logged_in else "collapsed",
+        initial_sidebar_state="expanded",
     )
-    if not logged_in:
-        render_logged_out_page(show_privacy=False)
+    if not render_guest_email_gate():
         st.stop()
-
-    require_login()
-    require_verified_email()
-    require_allowed_domain()
     inject_gpt_inspired_layout_css()
 
     init_pdf_session_state()

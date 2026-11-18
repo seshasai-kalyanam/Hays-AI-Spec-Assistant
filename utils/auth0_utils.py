@@ -200,7 +200,10 @@ def get_user_info() -> Dict[str, Any]:
 def get_user_email() -> Optional[str]:
     """
     Get the current user's email address.
-    
+
+    A typed guest email is used while Auth0 sign-in is turned off. An Auth0
+    login still wins when one is present.
+
     Returns:
         str or None: The user's email address if available, None otherwise.
     
@@ -213,11 +216,13 @@ def get_user_email() -> Optional[str]:
         Extracts email from user info dict. Returns None if user is not
         logged in or email is not available in the identity token.
     """
-    if not is_user_logged_in():
-        return None
-    
-    user_info = get_user_info()
-    return user_info.get("email")
+    if is_user_logged_in():
+        user_info = get_user_info()
+        email = user_info.get("email")
+        if email:
+            return str(email).strip()
+    guest = str(st.session_state.get("guest_email") or "").strip()
+    return guest or None
 
 
 def get_user_attribute(attribute_name: str, default: Any = None) -> Any:

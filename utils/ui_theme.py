@@ -129,6 +129,19 @@ GPT_STYLE_MARKDOWN = r"""
     min-height: 1.75rem;
     padding-top: 0.15rem;
     padding-bottom: 0.15rem;
+    white-space: nowrap;
+  }
+  [class*='st-key-hays_page_nav'] p {
+    white-space: nowrap;
+    margin: 0;
+  }
+  [class*='st-key-hays_workspace'] [data-testid='stColumn'] {
+    min-width: 0;
+  }
+  @media (max-width: 1100px) {
+    [class*='st-key-hays_workspace'] > div [data-testid='stHorizontalBlock'] {
+      flex-wrap: wrap;
+    }
   }
 </style>
 """
