@@ -14,7 +14,8 @@ GPT_STYLE_MARKDOWN = r"""
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.35rem 0 0.1rem 0;
+    min-height: 56px;
+    padding: 0 0 0.2rem 0;
     margin: 0;
     overflow: visible;
   }
@@ -40,6 +41,10 @@ GPT_STYLE_MARKDOWN = r"""
   [data-testid="stElementContainer"]:has(.hays-app-header),
   [data-testid="stMarkdownContainer"]:has(.hays-app-header) {
     overflow: visible !important;
+    flex: 0 0 auto !important;
+    height: auto !important;
+    min-height: 4.1rem !important;
+    margin-bottom: 0.35rem !important;
   }
   [data-testid="stCaptionContainer"] {
     margin-top: 0;
@@ -138,9 +143,119 @@ GPT_STYLE_MARKDOWN = r"""
   [class*='st-key-hays_workspace'] [data-testid='stColumn'] {
     min-width: 0;
   }
+  /* Both panes fill the window. Answers scroll inside the left pane. The PDF fills the right pane. */
+  [data-testid='stMainBlockContainer']:has([class*='st-key-hays_workspace']) {
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding-top: 2.4rem;
+    padding-bottom: 0.2rem;
+  }
+  [data-testid='stMainBlockContainer']:has([class*='st-key-hays_workspace']) > div,
+  [data-testid='stLayoutWrapper']:has([class*='st-key-hays_workspace']) {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  [class*='st-key-hays_workspace'] {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: 100% !important;
+  }
+  [class*='st-key-hays_workspace'] [data-testid='stHorizontalBlock'] {
+    flex: 1 1 auto;
+    height: 100%;
+    min-height: 0;
+    align-items: stretch;
+  }
+  [class*='st-key-hays_workspace'] [data-testid='stColumn'],
+  [class*='st-key-hays_workspace'] [data-testid='stColumn'] > [data-testid='stVerticalBlock'] {
+    height: 100%;
+    min-height: 0;
+  }
+  [data-testid='stLayoutWrapper']:has([class*='st-key-hays_chat_column']) {
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  [class*='st-key-hays_chat_column'] {
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  [class*='st-key-hays_chat_transcript'] {
+    padding-right: 0.35rem;
+  }
+  [class*='st-key-clear_chat_inline'] button {
+    white-space: nowrap;
+  }
+  [class*='st-key-hays_chat_column'] [data-testid='stElementContainer']:has([data-testid='stFileUploader']),
+  [class*='st-key-hays_chat_column'] [data-testid='stElementContainer']:has([data-testid='stChatInput']) {
+    flex: 0 0 auto !important;
+  }
+  [data-testid='stLayoutWrapper']:has([class*='st-key-hays_chat_transcript']) {
+    flex: 1 1 auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  [class*='st-key-hays_chat_transcript'] {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+  }
+  [data-testid='stLayoutWrapper']:has([class*='st-key-hays_source_panel']) {
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  [class*='st-key-hays_source_panel'] {
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box;
+    border: 1px solid rgba(49, 51, 63, 0.16);
+    border-radius: 0.7rem;
+    padding: 0.45rem 0.7rem 0.55rem;
+    background: #fff;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
   @media (max-width: 1100px) {
-    [class*='st-key-hays_workspace'] > div [data-testid='stHorizontalBlock'] {
+    [data-testid='stMainBlockContainer']:has([class*='st-key-hays_workspace']) {
+      height: auto;
+      max-height: none;
+      overflow: visible;
+    }
+    [class*='st-key-hays_workspace'] [data-testid='stHorizontalBlock'] {
       flex-wrap: wrap;
+      height: auto;
+    }
+    [data-testid='stLayoutWrapper']:has([class*='st-key-hays_chat_transcript']),
+    [class*='st-key-hays_chat_transcript'],
+    [data-testid='stLayoutWrapper']:has([class*='st-key-hays_source_panel']),
+    [class*='st-key-hays_source_panel'] {
+      height: 70vh !important;
+      max-height: 70vh !important;
     }
   }
 </style>

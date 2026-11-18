@@ -463,7 +463,6 @@ def render_pdf_page(pdf_bytes: bytes, filename: str, page: int) -> None:
         pages_to_render=source_pages,
         annotations=annotations,
         width="100%",
-        height=min(980, 560 * len(source_pages)),
         zoom_level=zoom_percent / 100.0,
         show_page_separator=len(source_pages) > 1,
     )
@@ -486,7 +485,7 @@ def render_citation_pdf_viewer() -> None:
         selected_name = loaded_names[0]
         st.session_state.selected_citation_pdf = selected_name
 
-    with st.container(border=True, gap="xxsmall"):
+    with st.container(border=False, gap="xxsmall"):
         # st.subheader("PDF Viewer")
         if len(loaded_names) > 1:
             selected_name = st.selectbox(

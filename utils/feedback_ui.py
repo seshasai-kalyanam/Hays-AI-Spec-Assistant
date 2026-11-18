@@ -116,7 +116,7 @@ def feedback_buttons_fragment(
         # Horizontal row: [up][down][caption][spacer][save]. Give save a wider
         # final column so its label stays on one line.
         up_col, down_col, caption_col, spacer_col, save_col = st.columns(
-            [1, 1, 3, 1, 6], vertical_alignment="center", gap="small"
+            [0.7, 0.7, 3.4, 0.1, 4.6], vertical_alignment="center", gap="small"
         )
         with up_col:
             up_active = current == 2
@@ -158,7 +158,7 @@ def feedback_buttons_fragment(
                 st.empty()
             elif saved_idx is None:
                 if st.button(
-                    "\U0001F4BE Save chat response to Collected Responses",
+                    "\U0001F4BE Save to Collected Responses",
                     key=f"save_response_{assistant_message_index}",
                     type="tertiary", width="stretch",
                     help="Save this response to Collected Responses",

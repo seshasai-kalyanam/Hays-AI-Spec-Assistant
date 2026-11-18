@@ -787,6 +787,42 @@ def create_log_entry(
         _return_connection(conn)
 
 
+def save_guest_email(email: str) -> bool:
+    """
+    Record a guest email in the "<TABLE_NAME>_guest_emails" table.
+
+    One row per address (stored lowercase): first_seen is set once and last_seen
+    is refreshed each time the address is entered again. Returns False instead of
+    raising so the app keeps working when Neon is unreachable.
+    """
+    table_name = f"{get_table_name()}_guest_emails"
+    conn = get_neon_connection()
+    if not conn:
+        return False
+
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute(f"""
+                CREATE TABLE IF NOT EXISTS "{table_name}" (
+                    user_email TEXT PRIMARY KEY,
+                    first_seen TIMESTAMPTZ NOT NULL DEFAULT now(),
+                    last_seen TIMESTAMPTZ NOT NULL DEFAULT now()
+                );
+            """)
+            cursor.execute(f"""
+                INSERT INTO "{table_name}" (user_email)
+                VALUES (%s)
+                ON CONFLICT (user_email) DO UPDATE SET last_seen = now();
+            """, (email.strip().lower(),))
+            conn.commit()
+            return True
+    except Exception:
+        _safe_rollback(conn)
+        return False
+    finally:
+        _return_connection(conn)
+
+
 def read_log_by_id(log_id: int, table_name: Optional[str] = None) -> Optional[Dict[str, Any]]:
     """
     Read a specific log entry by its ID.

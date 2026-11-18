@@ -15,6 +15,7 @@ from utils.config_vars import (
     LOGIN_PAGE_INTRO,
     LOGIN_PAGE_SIGN_IN_NOTE,
 )
+from utils.neon_utils import save_guest_email
 from utils.ui_theme import inject_gpt_inspired_layout_css
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -80,6 +81,7 @@ def render_guest_email_gate() -> bool:
         cleaned = (email or "").strip()
         if valid_guest_email(cleaned):
             st.session_state.guest_email = cleaned
+            save_guest_email(cleaned)
             st.rerun()
         st.error("Enter a valid email address.")
     return False
